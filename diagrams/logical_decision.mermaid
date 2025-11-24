@@ -1,0 +1,21 @@
+flowchart TD
+    A["🎫 Ticket Input"] --> B["🤖 Local Classification"]
+    B --> C["📊 Calculate Average Confidence<br/>(Category + Priority) / 2"]
+    
+    C --> D{Confidence ≥ 70%?}
+    
+    D -->|Yes| E["✅ Use Local Result<br/>Fast & Reliable"]
+    D -->|No| F{OpenAI Available?}
+    
+    F -->|Yes| G["🧠 OpenAI Classification<br/>More Accurate"]
+    F -->|No| H["⚠️ Use Local Fallback<br/>Better than Nothing"]
+    
+    G --> I["🎯 Return Enhanced Result"]
+    E --> J["⚡ Return Fast Result"]
+    H --> K["🔄 Return Basic Result"]
+    
+    style A fill:#e1f5fe
+    style I fill:#e8f5e8
+    style J fill:#fff3e0
+    style K fill:#ffebee
+    style C fill:#f3e5f5

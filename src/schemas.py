@@ -19,8 +19,8 @@ class TicketResponse(BaseModel):
     category: str
     priority: str
     category_confidence: float
-    category_priority: str
-    used_method = str
+    priority_confidence: float
+    method_used: str
     detected_feeling: Optional[str] = None
     urgency_level: Optional[str] = None
     extracted_entities: Optional[str] = None
@@ -32,9 +32,8 @@ class TrainingData(BaseModel):
 
 class OpenAIConfig(BaseModel):
     api_key: str
-    model: Optional[str]
-    max_tokens: Optional[int]
-    temperature: Optional[float]
+    model: Optional[str] = "gpt-5"
+    temperature: Optional[float] = 1
 
 CATEGORIES = [
     "Hardware", "Software", "Network", "Login",

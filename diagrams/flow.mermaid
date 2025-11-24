@@ -1,0 +1,36 @@
+sequenceDiagram
+    participant C as Client
+    participant API as FastAPI Router
+    participant S as ClassifierService
+    participant ML as Scikit-Learn
+    participant AI as OpenAI API
+    
+    C->>API: POST /classify-ticket
+    API->>S: classify_ticket(title, desc, method)
+    
+    alt Local Method
+        S->>S: preprocess_text()
+        S->>ML: predict_category()
+        S->>ML: predict_priority()
+        S->>S: extract_basic_features()
+        ML-->>S: category + confidence
+        S-->>API: local_result
+    else OpenAI Method
+        S->>AI: chat.completions.create()
+        AI-->>S: rich_analysis (JSON)
+        S->>S: validate_categories()
+        S-->>API: openai_result  
+    else Hybrid Method
+        S->>ML: local_classification()
+        ML-->>S: result + confidence
+        alt High Confidence (>70%)
+            S-->>API: local_result
+        else Low Confidence (<70%)
+            S->>AI: openai_classification()
+            AI-->>S: enhanced_result
+            S-->>API: hybrid_result
+        end
+    end
+    
+    API->>API: create_ticket_response()
+    API-->>C: TicketResponse (JSON)

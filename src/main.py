@@ -1,6 +1,13 @@
-def main():
-    print("Hello from ticket-support!")
+from fastapi import FastAPI
+from fastapi.responses import RedirectResponse
+from src.router import router as airouter
+app = FastAPI(
+    title="Ticket Support",
+    
+)
 
+app.include_router(airouter)
 
-if __name__ == "__main__":
-    main()
+app.get("/", response_class=RedirectResponse, include_in_schema=False)
+async def docs():
+    return RedirectResponse("/docs")

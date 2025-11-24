@@ -1,0 +1,23 @@
+graph TD
+    A["Ticket Input<br/>🎫 Title + Description"] --> B{Classification Method?}
+    
+    B -->|local| C["Local ML Models<br/>🤖 Scikit-learn"]
+    B -->|openai| D["OpenAI API<br/>🧠 GPT-3.5-turbo"]
+    B -->|hybrid| E["Hybrid Logic<br/>⚖️ Smart Selection"]
+    
+    C --> F["📊 Basic Analysis<br/>• Category<br/>• Priority<br/>• Confidence<br/>• Keywords"]
+    
+    D --> G["🔍 Rich Analysis<br/>• Category + Priority<br/>• Sentiment<br/>• Entities<br/>• Reasoning"]
+    
+    E --> H{Local Confidence > 70%?}
+    H -->|Yes| C
+    H -->|No| D
+    
+    F --> I["📝 Ticket Response<br/>ID + Classification + Metadata"]
+    G --> I
+    
+    style A fill:#e1f5fe
+    style I fill:#e8f5e8
+    style C fill:#fff3e0
+    style D fill:#f3e5f5
+    style E fill:#e0f2f1
